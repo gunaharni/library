@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="books_tree_view" model='ir.ui.view'>
+            <field name="name">lib.books.tree</field>
+            <field name="model">lib.books</field>
+            <field name="arch" type="xml">
+                <tree string ="Books">
+                    <field name="book"/>
+                    <field name="author"/>
+                    <field name="editor"/>
+                    <field name="year"/>
+                     <field name="isbn"/>
+                </tree>
+            </field>
+    </record>
+    <record id="books_form_view" model='ir.ui.view'>
+            <field name="name">lib.books.form</field>
+            <field name="model">lib.books</field>
+            <field name="arch" type="xml">
+                    <form string ="Books">
+                        <sheet>
+                            <field name="image" widget="image" class="oe_avatar"/>
+                            <div class="oe_title">
+                                <group>
+                                    <field name="book"/>
+                                    <field name="author"/>
+                                    <field name="editor"/>
+                                    <field name="year"/>
+                                    <field name="isbn"/>
+                                </group>
+                            </div>
+                        </sheet>
+                    </form>
+            </field>
+    </record>
+    <record id="books_kanban_view" model='ir.ui.view'>
+            <field name="name">lib.books.kanban</field>
+            <field name="model">lib.books</field>
+            <field name="arch" type="xml">
+                <kanban>
+                    <field name="image"/>
+                    <field name="book"/>
+                    <field name="author"/>
+                    <field name="editor"/>
+                    <field name="year"/>
+                    <field name="isbn"/>
+                    <templates>
+                          <t t-name="kanban-box">
+                            <div class="oe_kanban_global_click o_kanban_record_has_image_fill o_lib_books_kanban">
+                                <t t-if="record.image.raw_value">
+                                   <div class="o_kanban_image_fill_left d-none d-md-block"
+                                        t-attf-style="background-image:url('#{kanban_image('lib.books', 'image', record.id.raw_value)}')"/>
+                                </t>
+                                <t t-else="">
+                                    <img class="o_kanban_image" alt="Avatar" t-att-src='_s + "/web/static/src/img/user_menu_avatar.png"'/>
+                                </t>
+                                <div class="oe_kanban_details">
+                                    <strong class="o_kanban_record_title">
+                                    <field name="display_name"/>
+                                    </strong>
+                                     <div class="o_kanban_tags_selection"/>
+                                     <ul>
+                                        <li>Authors :  <field name="author"/></li>
+                                        <li>Editors : <field name="editor"/></li>
+                                        <li>Year of edition : <field name="year"/></li>
+                                        <li>ISBN : <field name="isbn"/></li>
+                                     </ul>
+                                </div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+    </record>
+    <record id="action_books" model="ir.actions.act_window">
+    <field name="name">Books</field>
+    <field name="type">ir.actions.act_window</field>
+         <field name="res_model">lib.books</field>
+            <field name="view_mode">kanban,tree,form</field>
+            <field name="context">{"search_default_mail":1}</field>
+            <field name="domain">[]</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Create your Books record Here!
+                </p>
+            </field>
+    </record>
+     <record id="customers_tree_view" model='ir.ui.view'>
+            <field name="name">lib.customer.tree</field>
+            <field name="model">lib.customer</field>
+            <field name="arch" type="xml">
+                <tree string ="Customers">
+                    <field name="name"/>
+                    <field name="email"/>
+                     <field name="address"/>
+                     <field name="rented"/>
+                </tree>
+            </field>
+    </record>
+     <record id="customers_form_view" model='ir.ui.view'>
+            <field name="name">lib.customer.form</field>
+            <field name="model">lib.customer</field>
+            <field name="arch" type="xml">
+                    <form string ="Customer">
+                        <sheet>
+                            <group>
+                                <group>
+                                    <field name="name"/>
+                                    <field name="email"/>
+                                     <field name="address"/>
+                                     <field name="rented" widget="many2many_tags"/>
+                                </group>
+                            </group>
+                        </sheet>
+                    </form>
+            </field>
+    </record>
+     <record id="books_kanban_view" model='ir.ui.view'>
+            <field name="name">lib.customer.kanban</field>
+            <field name="model">lib.customer</field>
+            <field name="arch" type="xml">
+                <kanban>
+                    <field name="image"/>
+                    <field name="name"/>
+                    <field name="email"/>
+                    <field name="address"/>
+                    <field name="rented"/>
+                    <templates>
+                          <t t-name="kanban-box">
+                            <div class="oe_kanban_global_click o_kanban_record_has_image_fill o_lib_books_kanban">
+                                <t t-if="record.image.raw_value">
+                                   <div class="o_kanban_image_fill_left d-none d-md-block"
+                                        t-attf-style="background-image:url('#{kanban_image('lib.books', 'image', record.id.raw_value)}')"/>
+                                </t>
+                                <t t-else="">
+                                    <img class="o_kanban_image" alt="Avatar" t-att-src='_s + "/web/static/src/img/user_menu_avatar.png"'/>
+                                </t>
+                                <div class="oe_kanban_details">
+                                    <strong class="o_kanban_record_title">
+                                    <field name="name"/>
+                                    </strong>
+                                     <div class="o_kanban_tags_selection"/>
+                                     <ul>
+                                        <li>Email ID :  <field name="email"/></li>
+                                        <li>Address : <field name="address"/></li>
+                                        <li>Rented Books : <field name="rented"/></li>
+                                     </ul>
+                                </div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+    </record>
+    <record id="action_customer" model="ir.actions.act_window">
+    <field name="name">Customer</field>
+    <field name="type">ir.actions.act_window</field>
+         <field name="res_model">lib.customer</field>
+            <field name="view_mode">kanban,tree,form</field>
+            <field name="context">{}</field>
+            <field name="domain">[]</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Create your Customer record Here!
+                </p>
+            </field>
+    </record>
+    <menuitem id="lib_root_menu"
+              name="Library"
+              web_icon="event,static/description/icon.png"
+              sequence="1"/>
+    <menuitem id="lib_books_menu"
+              name="Books" action="action_books"
+              parent="lib_root_menu"
+              sequence = "1"/>
+    <menuitem id="lib_customers_menu"
+              name="Customers" action="action_customer"
+              parent="lib_root_menu"
+              sequence = "2"/>
+</odoo>
